@@ -1,9 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import NavBar from './NavBar/NavBar';
+import ContainerAll from './ContainerAll/ContainerAll';
+import ItemListContainer from './ItemListContainer/ItemListContainer';
+import React from 'react';
 
 function App() {
-  return (
-    <div className="App">
+
+   return (
+
+   
+
+        <>
+          <ContainerAll>
+            <NavBar />
+            <ItemListContainer greeting='Mi Catálogo de Productos' />
+          </ContainerAll>
+        </>
+    
+
+/*     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -18,8 +32,8 @@ function App() {
           Learn React
         </a>
       </header>
-    </div>
-  );
+    </div> */
+  ); 
 }
 
 export default App;
