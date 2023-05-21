@@ -6,7 +6,7 @@ import React from 'react';
 const App = () => {
    return (
         <>
-          <ContainerAll>
+          <ContainerAll> 
             <NavBar />
             <ItemListContainer  greeting='Mi Catálogo de Productos' />
           </ContainerAll>
