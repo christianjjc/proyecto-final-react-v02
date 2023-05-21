@@ -6,6 +6,7 @@ const ItemListContainer = ({ greeting }) => {
     const [data, setData] = useState([]);
     const URL_API = 'https://raw.githubusercontent.com/christianjjc/proyecto-final-react/ft-desafio-03/src/Item/json/tblProductos.json';
 
+    
     const obtenerDatosApi = async () => {
         try {
             const response = await fetch(URL_API);
@@ -15,7 +16,6 @@ const ItemListContainer = ({ greeting }) => {
             console.log(error);
         }
     };
-
 
     useEffect(()=>{
         obtenerDatosApi();
