@@ -6,7 +6,7 @@ const Item = ({ item }) => {
     return (
         <>
             <div className="col-12 col-md-6 col-lg-4 col-xl-3">
-                <div className="card bg-light">
+                <div className="card bg-light mb-2">
                     <img src={item?.imagen} className="card-img-top" alt={item?.titulo} />
                     <div className="card-body">
                         <h5 className="card-title">{item?.titulo}</h5>

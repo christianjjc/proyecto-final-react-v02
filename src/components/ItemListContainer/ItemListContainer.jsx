@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList';
+import axios from 'axios';
 
 const ItemListContainer = ({ greeting }) => {
     const [data, setData] = useState([]);
     const URL_API = 'https://raw.githubusercontent.com/christianjjc/proyecto-final-react/ft-desafio-03/src/Item/json/tblProductos.json';
 
-    
+/* 
     const obtenerDatosApi = async () => {
         try {
             const response = await fetch(URL_API);
@@ -16,9 +17,16 @@ const ItemListContainer = ({ greeting }) => {
             console.log(error);
         }
     };
+     */
+
+    const obtenerDatos = ()=>{
+        axios.get(URL_API)
+        .then((response)=>{setData(response.data)})
+        .catch((err)=>{console.log(err)})
+    }
 
     useEffect(()=>{
-        obtenerDatosApi();
+        obtenerDatos();
     },[]);
     
     return (

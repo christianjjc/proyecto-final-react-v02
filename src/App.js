@@ -3,7 +3,7 @@ import ContainerAll from './components/ContainerAll/ContainerAll';
 import ItemListContainer from './components/ItemListContainer/ItemListContainer';
 import React from 'react';
 
-function App() {
+const App = () => {
    return (
         <>
           <ContainerAll>
