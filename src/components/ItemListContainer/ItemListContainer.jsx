@@ -3,38 +3,28 @@ import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList';
 import axios from 'axios';
 
-const ItemListContainer = ({ greeting }) => {
+const ItemListContainer = ({ titulo }) => {
     const [data, setData] = useState([]);
     const URL_API = 'https://raw.githubusercontent.com/christianjjc/proyecto-final-react/ft-desafio-03/src/Item/json/tblProductos.json';
-
-/* 
-    const obtenerDatosApi = async () => {
-        try {
-            const response = await fetch(URL_API);
-            const jsonData = await response.json();
-            setData(jsonData);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-     */
-
     const obtenerDatos = ()=>{
         axios.get(URL_API)
-        .then((response)=>{setData(response.data)})
+        .then((response)=>{
+            const array = response.data;
+            putArraInLocalS(array, 'animes');
+            setData(array);
+        })
         .catch((err)=>{console.log(err)})
     }
-
+    const putArraInLocalS = (miArray, strNombreArrayObjeto) => {localStorage.setItem(strNombreArrayObjeto, JSON.stringify(miArray))}
     useEffect(()=>{
         obtenerDatos();
     },[]);
-    
     return (
         <div className='row itemListContainer'>
             <div className="col-12">
                 <div className="row">
                     <div className='text-center col-12'>
-                        <h1>{greeting}</h1>
+                        <h1>{titulo}</h1>
                     </div>
                 </div>
                 <div className="row justify-content-center">

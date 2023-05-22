@@ -1,6 +1,6 @@
 import React from 'react';
 import ItemCount from '../ItemCount/ItemCount';
-import './Item.css'
+import { Link } from 'react-router-dom';
 
 const Item = ({ item }) => {
     return (
@@ -13,22 +13,22 @@ const Item = ({ item }) => {
                         <p className="card-text">{item?.descShort}</p>
                     </div>
                     <ul className="list-group list-group-flush">
+                        <li className="list-group-item bg-light"><Link to={`/item/${item?.id}`}>Ver Detalle</Link></li>
                         <li className="list-group-item bg-light"><b>Categoría: </b>No Categorizado</li>
                         <li className="list-group-item bg-light"><b>Precio: </b>US$ {item?.precio}</li>
                         <li className="list-group-item bg-light"><b>Stock: </b>{item?.stock}</li>
                     </ul>
                     <div className="card-body">
                         <div className="row justify-content-center">
-                            <div className="col-8">
+                            <div className="col-12">
                                 <ItemCount idBtnAgrega={`btnAddCart-${item?.id}`} stock={item?.stock} inicio={0} tituloItem={item?.titulo} />
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </>
     );
 };
 
-export default Item;  
+export default Item;
