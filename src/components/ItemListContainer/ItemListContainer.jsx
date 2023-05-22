@@ -2,16 +2,23 @@ import React, { useState, useEffect } from 'react';
 import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const ItemListContainer = ({ titulo }) => {
     const [data, setData] = useState([]);
-    //const URL_API = 'https://raw.githubusercontent.com/christianjjc/proyecto-final-react/ft-desafio-03/src/Item/json/tblProductos.json';
+    const params = useParams();
     const URL_API = 'https://raw.githubusercontent.com/christianjjc/proyecto-final-react-v02/main/src/components/Item/json/tblProductos.json'
+
+
+
     
     const obtenerDatos = ()=>{
         axios.get(URL_API)
         .then((response)=>{
             const array = response.data;
+            arrayFiltrado = array.filter((item)=>{
+                return item.idCatedoria.some(categoria => categoria.includes(params.idCategoria))
+            })
             putArraInLocalS(array, 'animes');
             setData(array);
         })
