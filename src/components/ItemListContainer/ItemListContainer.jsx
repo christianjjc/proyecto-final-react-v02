@@ -5,7 +5,9 @@ import axios from 'axios';
 
 const ItemListContainer = ({ titulo }) => {
     const [data, setData] = useState([]);
-    const URL_API = 'https://raw.githubusercontent.com/christianjjc/proyecto-final-react/ft-desafio-03/src/Item/json/tblProductos.json';
+    //const URL_API = 'https://raw.githubusercontent.com/christianjjc/proyecto-final-react/ft-desafio-03/src/Item/json/tblProductos.json';
+    const URL_API = 'https://raw.githubusercontent.com/christianjjc/proyecto-final-react-v02/main/src/components/Item/json/tblProductos.json'
+    
     const obtenerDatos = ()=>{
         axios.get(URL_API)
         .then((response)=>{
