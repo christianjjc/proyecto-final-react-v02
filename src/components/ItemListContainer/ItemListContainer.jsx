@@ -3,6 +3,7 @@ import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { putArrayInLocalS } from '../Helpers/utilitarios';
 
 const ItemListContainer = ({ titulo }) => {
     const [data, setData] = useState([]);
@@ -21,13 +22,12 @@ const ItemListContainer = ({ titulo }) => {
             } else {
                 arrayFiltrado = array;
             }
-            putArraInLocalS(arrayFiltrado, 'animes');
+            putArrayInLocalS(arrayFiltrado, 'animes');
             setData(arrayFiltrado);
         })
         .catch((err)=>{console.log(err)})
     }
 
-    const putArraInLocalS = (miArray, strNombreArrayObjeto) => {localStorage.setItem(strNombreArrayObjeto, JSON.stringify(miArray))}
     useEffect(()=>{
         obtenerDatos();
     },[params]);
