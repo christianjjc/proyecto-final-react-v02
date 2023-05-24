@@ -21,7 +21,7 @@ const Item = ({ item }) => {
                     <div className="card-body">
                         <div className="row justify-content-center">
                             <div className="col-12">
-                                <ItemCount idBtnAgrega={`btnAddCart-${item?.id}`} stock={item?.stock} inicio={0} tituloItem={item?.titulo} />
+                                
                             </div>
                         </div>
                     </div>

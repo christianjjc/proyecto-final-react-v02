@@ -5,3 +5,4 @@ export { default as cantTotalArray } from './cantTotalArray';
 export { default as getFieldObj } from './getFieldObj';
 export { default as muestraOcultaEtiqueta } from './muestraOcultaEtiqueta';
 export { default as habilitaDeshabilitaBoton } from './habilitaDeshabilitaBoton';
+export { default as formatearNumero } from './formatearNumero';

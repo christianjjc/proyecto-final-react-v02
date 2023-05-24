@@ -1,8 +1,9 @@
-const habilitaDeshabilitaBoton = (miBoton, habTrueDesHabFalse)=>{
+const habilitaDeshabilitaBoton = (idBoton, habTrueDesHabFalse)=>{
+    const boton = document.getElementById(idBoton);
     if (habTrueDesHabFalse){
-        miBoton.setAttribute('disabled', true);
+        boton.setAttribute('disabled', true);
     }else{
-        miBoton.removeAttribute('disabled');
+        boton.removeAttribute('disabled');
     }
 }
 
