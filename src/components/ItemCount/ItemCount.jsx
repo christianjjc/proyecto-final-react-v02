@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import imgMas from 'bootstrap-icons/icons/plus.svg';
 import imgMenos from 'bootstrap-icons/icons/dash.svg';
-import { habilitaDeshabilitaBoton, putArrayInLocalS } from '../../helpers/utilitarios'
+import { habilitaDeshabilitaBoton } from '../../helpers/utilitarios'
 import CartContext from '../../store/cart-context';
 
 const BtnAregarCarrito = ({ item, cantidad }) => {
@@ -13,8 +13,6 @@ const BtnAregarCarrito = ({ item, cantidad }) => {
     }
 
     useEffect(()=>{
-        console.log('exece')
-        console.log(cartCtx);
     },[cartCtx])
 
     return (
