@@ -27,6 +27,8 @@ const NavBar = () => {
                                 <li><Link to={'/category/1'} className="dropdown-item">Categoría 1</Link></li>
                                 <li><Link to={'/category/2'} className="dropdown-item">Categoría 2</Link></li>
                                 <li><Link to={'/category/3'} className="dropdown-item">Categoría 3</Link></li>
+                                <li><hr className="dropdown-divider" /></li>
+                                <li><Link to={'/cart/'} className="dropdown-item">Ver Carrito</Link></li>
                             </ul>
                         </li>
                         <li className="nav-item">
