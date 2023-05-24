@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import putArrayInLocalS from '../../helpers/putArrayInLocalS';
+import CartContext from '../../store/cart-context';
 
 
 const ItemListContainer = ({ titulo }) => {
     const [data, setData] = useState([]);
     const { idCategoria } = useParams();
-    const URL_API = 'https://raw.githubusercontent.com/christianjjc/proyecto-final-react-v02/main/src/components/Item/json/tblProductos.json'
+    const cartCtx = useContext(CartContext);
 
+    const URL_API = 'https://raw.githubusercontent.com/christianjjc/proyecto-final-react-v02/main/src/components/Item/json/tblProductos.json'
     const obtenerDatos = ()=>{
         axios.get(URL_API)
         .then((response)=>{
@@ -28,6 +30,10 @@ const ItemListContainer = ({ titulo }) => {
         })
         .catch((err)=>{console.log(err)})
     }
+
+    useEffect(()=>{
+        console.log(cartCtx.productos);
+    },[])
 
     useEffect(()=>{
         obtenerDatos();
