@@ -1,30 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import imgMas from 'bootstrap-icons/icons/plus.svg';
 import imgMenos from 'bootstrap-icons/icons/dash.svg';
+import { habilitaDeshabilitaBoton, putArrayInLocalS } from '../../helpers/utilitarios'
+import CartContext from '../../store/cart-context';
 
-const BtnAregarCarrito = ({ idBtnAgrega, cantidadItems, tituloItem }) => {
+const BtnAregarCarrito = ({ item, cantidad }) => {
+    const cartCtx = useContext(CartContext);
+
     const handleOnAdd = ()=>{
-        alert(`¡${cantidadItems} Ítem(s) "${tituloItem}" Agregado(s)!`);
+        cartCtx.addProduct(item, cantidad);
+        alert(`¡${cantidad} Ítem(s) "${item?.titulo}" Agregado(s)!`);
     }
+
+    useEffect(()=>{
+        console.log('exece')
+        console.log(cartCtx);
+    },[cartCtx])
+
     return (
         <>
-            <button id={idBtnAgrega} className="btn btn-primary btn-block w-100" onClick={handleOnAdd}>Agregar al carrito</button>
+            <button id={`idBtnAgrega-${item?.id}`} className="btn btn-primary btn-block w-100" onClick={handleOnAdd}>Agregar al carrito</button>
         </>
     );
 };
 
-const ItemCount = ({ idBtnAgrega, stock, inicio, tituloItem }) => {
-    const [contador, setContador] = useState(inicio);
+const ItemCount = ({ item }) => {
+    const [contador, setContador] = useState(0);
+    const id = `idBtnAgrega-${item?.id}`;
 
     useEffect(() => {
-        if (contador < 1) {
-            document.getElementById(idBtnAgrega).disabled = true
-        } else {
-            document.getElementById(idBtnAgrega).disabled = false;
-        }
-        return () => {
-            //console.log('Eliminado', contador)
-        }
+        habilitaDeshabilitaBoton(id, contador?false:true);
     }, [contador])
 
     const handleRestaContador = (event) => {
@@ -35,7 +40,7 @@ const ItemCount = ({ idBtnAgrega, stock, inicio, tituloItem }) => {
     }
 
     const handleSumaContador = (event) => {
-        if (contador < stock) {
+        if (contador < item?.stock) {
             event.preventDefault();
             setContador(contador + 1);
         }
@@ -59,7 +64,7 @@ const ItemCount = ({ idBtnAgrega, stock, inicio, tituloItem }) => {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <BtnAregarCarrito idBtnAgrega={idBtnAgrega} cantidadItems={contador} tituloItem={tituloItem} />
+                        <BtnAregarCarrito item={item} cantidad={contador} />
                     </div>
                 </div>
             </div>

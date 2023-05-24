@@ -3,7 +3,7 @@ import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import putArrayInLocalS from '../../helpers/putArrayInLocalS';
+import { putArrayInLocalS } from '../../helpers/utilitarios';
 
 
 const ItemListContainer = ({ titulo }) => {

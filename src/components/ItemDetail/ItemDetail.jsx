@@ -1,5 +1,5 @@
 import ItemCount from '../ItemCount/ItemCount';
-import formatearNumero from '../../helpers/formatearNumero';
+import { formatearNumero } from '../../helpers/utilitarios';
 /* import { Link } from 'react-router-dom'; */
 
 const ItemDetail = ({ item }) => {
