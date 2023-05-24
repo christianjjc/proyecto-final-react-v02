@@ -1,30 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import imgMas from 'bootstrap-icons/icons/plus.svg';
 import imgMenos from 'bootstrap-icons/icons/dash.svg';
+import { cargaCantidadPedida, habilitaDeshabilitaBoton } from '../../helpers/utilitarios'
+import CartContext from '../../store/cart-context';
 
-const BtnAregarCarrito = ({ idBtnAgrega, cantidadItems, tituloItem }) => {
+const BtnAregarCarrito = ({ item, cantidad }) => {
+    const cartCtx = useContext(CartContext);
+
     const handleOnAdd = ()=>{
-        alert(`¡${cantidadItems} Ítem(s) "${tituloItem}" Agregado(s)!`);
+        cartCtx.addProducto(item, cantidad);
+        alert(`¡${cantidad} Ítem(s) "${item?.titulo}" Agregado(s)!`);
+/*         console.log('anterior');
+        console.log(cartCtx.productos); */
     }
+
+    useEffect(()=>{
+/*         console.log('useefect');
+        console.log(cartCtx.productos) */
+    },[cartCtx])
+
     return (
         <>
-            <button id={idBtnAgrega} className="btn btn-primary btn-block w-100" onClick={handleOnAdd}>Agregar al carrito</button>
+            <button id={`idBtnAgrega-${item?.id}`} className="btn btn-primary btn-block w-100" onClick={handleOnAdd}>Agregar al carrito</button>
         </>
     );
 };
 
-const ItemCount = ({ idBtnAgrega, stock, inicio, tituloItem }) => {
-    const [contador, setContador] = useState(inicio);
+
+
+
+const ItemCount = ({ item }) => {
+    const [contador, setContador] = useState(0);
+    const id = `idBtnAgrega-${item?.id}`;
 
     useEffect(() => {
-        if (contador < 1) {
-            document.getElementById(idBtnAgrega).disabled = true
-        } else {
-            document.getElementById(idBtnAgrega).disabled = false;
-        }
-        return () => {
-            //console.log('Eliminado', contador)
-        }
+        habilitaDeshabilitaBoton(id, contador?false:true);
     }, [contador])
 
     const handleRestaContador = (event) => {
@@ -35,7 +45,7 @@ const ItemCount = ({ idBtnAgrega, stock, inicio, tituloItem }) => {
     }
 
     const handleSumaContador = (event) => {
-        if (contador < stock) {
+        if (contador < item?.stock) {
             event.preventDefault();
             setContador(contador + 1);
         }
@@ -50,7 +60,7 @@ const ItemCount = ({ idBtnAgrega, stock, inicio, tituloItem }) => {
                             <a href="#" onClick={handleRestaContador}>
                                 <img src={imgMenos} alt="Restar" />
                             </a>
-                            <h3 className="text-center">{contador}</h3>
+                            <h3 id={`txtCantidadPedir-${item.id}`} className="text-center">{contador}</h3>
                             <a href="#" onClick={handleSumaContador}>
                                 <img src={imgMas} alt="Sumar" />
                             </a>
@@ -59,7 +69,7 @@ const ItemCount = ({ idBtnAgrega, stock, inicio, tituloItem }) => {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <BtnAregarCarrito idBtnAgrega={idBtnAgrega} cantidadItems={contador} tituloItem={tituloItem} />
+                        <BtnAregarCarrito item={item} cantidad={contador} />
                     </div>
                 </div>
             </div>

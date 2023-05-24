@@ -1,14 +1,9 @@
-import React from 'react';
 import ItemCount from '../ItemCount/ItemCount';
+import { formatearNumero } from '../../helpers/utilitarios';
 /* import { Link } from 'react-router-dom'; */
 
 const ItemDetail = ({ item }) => {
-
-    const formatearNumero=(num)=>{
-        const num2 = parseFloat(num).toFixed(2).toLocaleString("es-PE", {style: "currency", currency: "PEN", });
-        return num2;
-    }
-
+    
     return (
         <>
             <div className="row text-center mt-4">
@@ -41,7 +36,8 @@ const ItemDetail = ({ item }) => {
                     </div>
                     <div className="row">
                         <div className="col-6">
-                            <ItemCount idBtnAgrega={`btnAddCart-${item?.id}`} stock={item?.stock} inicio={0} tituloItem={item?.titulo} />
+                            {/* <ItemCount idBtnAgrega={`btnAddCart-${item?.id}`} stock={item?.stock} inicio={0} tituloItem={item?.titulo} /> */}
+                            <ItemCount item={item} />
                         </div>
                     </div>
                 </div>

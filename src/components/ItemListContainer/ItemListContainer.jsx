@@ -3,21 +3,22 @@ import './ItemListContainer.css';
 import ItemList from '../ItemList/ItemList';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { putArrayInLocalS } from '../Helpers/utilitarios';
+import { putArrayInLocalS } from '../../helpers/utilitarios';
+
 
 const ItemListContainer = ({ titulo }) => {
     const [data, setData] = useState([]);
-    const params = useParams();
+    const { idCategoria } = useParams();
     const URL_API = 'https://raw.githubusercontent.com/christianjjc/proyecto-final-react-v02/main/src/components/Item/json/tblProductos.json'
-
+    
     const obtenerDatos = ()=>{
         axios.get(URL_API)
         .then((response)=>{
             const array = response.data;
             let arrayFiltrado = [];
-            if (Object.keys(params).length > 0) {
+            if (idCategoria) {
                 arrayFiltrado = array.filter((item)=>{
-                    return item.idCategoria.some(categoria => categoria.includes(params.idCategoria))
+                    return item.idCategoria.some(categoria => categoria.includes(idCategoria))
                 })
             } else {
                 arrayFiltrado = array;
@@ -30,14 +31,14 @@ const ItemListContainer = ({ titulo }) => {
 
     useEffect(()=>{
         obtenerDatos();
-    },[params]);
+    },[idCategoria]);
 
     return (
         <div className='row itemListContainer'>
             <div className="col-12">
                 <div className="row">
                     <div className='text-center col-12'>
-                        <h1>{`${titulo} ${(Object.keys(params).length>0)?params.idCategoria:''}`}</h1>
+                        <h1>{`${titulo} ${idCategoria || ''}`}</h1>
                     </div>
                 </div>
                 <div className="row justify-content-center">
