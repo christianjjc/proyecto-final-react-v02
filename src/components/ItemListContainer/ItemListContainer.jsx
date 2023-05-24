@@ -16,7 +16,8 @@ const ItemListContainer = ({ titulo }) => {
     const obtenerDatos = ()=>{
         axios.get(URL_API)
         .then((response)=>{
-            const array = response.data;
+            //const array = response.data;
+            const array = cartCtx.productos;
             let arrayFiltrado = [];
             if (idCategoria) {
                 arrayFiltrado = array.filter((item)=>{
