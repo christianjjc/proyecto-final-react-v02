@@ -3,10 +3,10 @@ import { putArrayInLocalS, getLocalSoragePutInArray } from "../helpers/utilitari
 
 const CartContext = createContext({
     productos: [],
-    addProduct: ()=>{},
-    removeProduct: ()=>{},
-    clearProducts: ()=>{},
-    getProduct: ()=>{},
+    addProducto: ()=>{},
+    removeProducto: ()=>{},
+    clearProductos: ()=>{},
+    getCartQuantity: ()=>{},
 });
 
 export default CartContext;
@@ -14,34 +14,36 @@ export default CartContext;
 export const CartContextProvider = ({ children }) => {
     const [ productosLista, setProductosLista ] = useState(getLocalSoragePutInArray('productosCarrito'));
 
-    const addProduct = (producto, cantidadPedida)=>{
+    const addProducto = (producto, cantidadPedida)=>{
         const nuevoProducto = {cantidad: cantidadPedida, ...producto};
         const nuevoArray = [nuevoProducto, ...productosLista.filter((item) => item.id !== producto.id)];
         putArrayInLocalS(nuevoArray, 'productosCarrito');
         setProductosLista(nuevoArray);
     }
 
-    const removeProduct = (producto) => {
+    const removeProducto = (producto) => {
         const nuevoArray = productosLista.filter((item) => item.id !== producto.id);
         setProductosLista(nuevoArray);
     }
 
-    const clearProducts = () => {
+    const clearProductos = () => {
         setProductosLista([]);
     }
 
-    const getProduct = (id) => {
-        const nuevoArray = productosLista.filter((item) => item.id == id);
-        return nuevoArray
+    const getCartQuantity = ()=>{
+        const cartQuantity = productosLista.reduce((acumulador, array)=>{
+            return acumulador + array.cantidad
+        },0);
+        return cartQuantity;
     }
 
     return (
         <CartContext.Provider value={{
             productos: productosLista,
-            addProduct,
-            removeProduct,
-            clearProducts,
-            getProduct
+            addProducto,
+            removeProducto,
+            clearProductos,
+            getCartQuantity,
         }}>
             { children }
         </CartContext.Provider>

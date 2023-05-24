@@ -3,6 +3,7 @@ import { formatearNumero } from '../../helpers/utilitarios';
 /* import { Link } from 'react-router-dom'; */
 
 const ItemDetail = ({ item }) => {
+    
     return (
         <>
             <div className="row text-center mt-4">

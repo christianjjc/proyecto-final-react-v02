@@ -4,3 +4,6 @@ const formatearNumero = (num) => {
 }
 
 export default formatearNumero;
+
+
+

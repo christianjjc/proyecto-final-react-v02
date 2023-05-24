@@ -1,18 +1,22 @@
 import React, { useState, useEffect, useContext } from 'react';
 import imgMas from 'bootstrap-icons/icons/plus.svg';
 import imgMenos from 'bootstrap-icons/icons/dash.svg';
-import { habilitaDeshabilitaBoton } from '../../helpers/utilitarios'
+import { cargaCantidadPedida, habilitaDeshabilitaBoton } from '../../helpers/utilitarios'
 import CartContext from '../../store/cart-context';
 
 const BtnAregarCarrito = ({ item, cantidad }) => {
     const cartCtx = useContext(CartContext);
 
     const handleOnAdd = ()=>{
-        cartCtx.addProduct(item, cantidad);
+        cartCtx.addProducto(item, cantidad);
         alert(`¡${cantidad} Ítem(s) "${item?.titulo}" Agregado(s)!`);
+/*         console.log('anterior');
+        console.log(cartCtx.productos); */
     }
 
     useEffect(()=>{
+/*         console.log('useefect');
+        console.log(cartCtx.productos) */
     },[cartCtx])
 
     return (
@@ -21,6 +25,9 @@ const BtnAregarCarrito = ({ item, cantidad }) => {
         </>
     );
 };
+
+
+
 
 const ItemCount = ({ item }) => {
     const [contador, setContador] = useState(0);
@@ -53,7 +60,7 @@ const ItemCount = ({ item }) => {
                             <a href="#" onClick={handleRestaContador}>
                                 <img src={imgMenos} alt="Restar" />
                             </a>
-                            <h3 className="text-center">{contador}</h3>
+                            <h3 id={`txtCantidadPedir-${item.id}`} className="text-center">{contador}</h3>
                             <a href="#" onClick={handleSumaContador}>
                                 <img src={imgMas} alt="Sumar" />
                             </a>
