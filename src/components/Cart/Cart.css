@@ -1,0 +1,17 @@
+.imgCarrito {
+    width: 75px;
+    height: 75px;
+}
+
+.botonesCarrito, .botonesCarrito:visited, .botonesCarrito:link, .botonesCarrito:active{
+    text-decoration: none;
+    outline: none;
+    color: #000000;
+    padding: 5px 20px;
+    line-height: 1.5em;
+    font-size: 16px;
+}
+
+.botonesCarrito:hover {
+    color:red;
+}
