@@ -7,3 +7,4 @@ export { default as muestraOcultaEtiqueta } from './muestraOcultaEtiqueta';
 export { default as habilitaDeshabilitaBoton } from './habilitaDeshabilitaBoton';
 export { default as formatearNumero } from './formatearNumero';
 export { default as cargaCantidadPedida } from './cargaCantidadPedida';
+export { default as clearLocalStorage } from './clearLocalStorage';

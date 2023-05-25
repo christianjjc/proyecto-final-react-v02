@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { putArrayInLocalS, getLocalSoragePutInArray } from "../helpers/utilitarios";
+import { putArrayInLocalS, getLocalSoragePutInArray, clearLocalStorage } from "../helpers/utilitarios";
 
 const CartContext = createContext({
     productos: [],
@@ -7,6 +7,7 @@ const CartContext = createContext({
     removeProducto: ()=>{},
     clearProductos: ()=>{},
     getCartQuantity: ()=>{},
+    getCartPrice: ()=>{},
 });
 
 export default CartContext;
@@ -27,7 +28,15 @@ export const CartContextProvider = ({ children }) => {
     }
 
     const clearProductos = () => {
-        setProductosLista([]);
+        const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar todos los Items de tu carrito de compras?');
+        if (confirmacion) {
+            clearLocalStorage('productosCarrito');
+            setProductosLista([]);
+            //console.log('Todos los productos del carrito han sido eliminados.');
+            return true;
+        } else {
+            return false;
+        }
     }
 
     const getCartQuantity = ()=>{
@@ -37,6 +46,13 @@ export const CartContextProvider = ({ children }) => {
         return cartQuantity;
     }
 
+    const getCartPrice = ()=>{
+        const cartPrice = productosLista.reduce((acumulador, array)=>{
+            return acumulador + (array.cantidad * array.precio);
+        },0);
+        return cartPrice;
+    }
+
     return (
         <CartContext.Provider value={{
             productos: productosLista,
@@ -44,6 +60,7 @@ export const CartContextProvider = ({ children }) => {
             removeProducto,
             clearProductos,
             getCartQuantity,
+            getCartPrice,
         }}>
             { children }
         </CartContext.Provider>

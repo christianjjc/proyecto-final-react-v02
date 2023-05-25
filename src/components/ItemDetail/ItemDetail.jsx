@@ -28,7 +28,7 @@ const ItemDetail = ({ item }) => {
                                     <p><b>Stock: </b></p>
                                 </div>
                                 <div className="col-10">
-                                    <p>S/ {formatearNumero(item?.precio)}</p>
+                                    <p>US$ {formatearNumero(item?.precio)}</p>
                                     <p>{item?.stock} unidades</p>
                                 </div>
                             </div>
