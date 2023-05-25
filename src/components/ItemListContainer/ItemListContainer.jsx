@@ -5,16 +5,26 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { putArrayInLocalS } from '../../helpers/utilitarios';
 
+import { collection, getDocs, getFirestore } from 'firebase/firestore'  //conexion a FIRESTORE de GOOGLE
 
 const ItemListContainer = ({ titulo }) => {
     const [data, setData] = useState([]);
     const { idCategoria } = useParams();
-    const URL_API = 'https://raw.githubusercontent.com/christianjjc/proyecto-final-react-v02/main/src/components/Item/json/tblProductos.json'
-    
+    //const URL_API = 'https://raw.githubusercontent.com/christianjjc/proyecto-final-react-v02/main/src/components/Item/json/tblProductos.json'
+
     const obtenerDatos = ()=>{
-        axios.get(URL_API)
-        .then((response)=>{
-            const array = response.data;
+        //axios.get(URL_API)
+        //.then((response)=>{
+        const db = getFirestore();
+        const itemsCollection = collection(db,'animes');
+        getDocs(itemsCollection)
+        .then((querySnapshot)=>{
+            const dataArray = [];
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                dataArray.push({id: doc.id, ...data});
+            });
+            const array = dataArray;
             let arrayFiltrado = [];
             if (idCategoria) {
                 arrayFiltrado = array.filter((item)=>{
@@ -24,7 +34,7 @@ const ItemListContainer = ({ titulo }) => {
                 arrayFiltrado = array;
             }
             putArrayInLocalS(arrayFiltrado, 'animes');
-            setData(arrayFiltrado);
+            setData(arrayFiltrado); 
         })
         .catch((err)=>{console.log(err)})
     }
