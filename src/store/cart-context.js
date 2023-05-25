@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { putArrayInLocalS, getLocalSoragePutInArray } from "../helpers/utilitarios";
+import { putArrayInLocalS, getLocalSoragePutInArray, clearLocalStorage } from "../helpers/utilitarios";
 
 const CartContext = createContext({
     productos: [],
@@ -28,7 +28,15 @@ export const CartContextProvider = ({ children }) => {
     }
 
     const clearProductos = () => {
-        setProductosLista([]);
+        const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar todos los Items de tu carrito de compras?');
+        if (confirmacion) {
+            clearLocalStorage('productosCarrito');
+            setProductosLista([]);
+            //console.log('Todos los productos del carrito han sido eliminados.');
+            return true;
+        } else {
+            return false;
+        }
     }
 
     const getCartQuantity = ()=>{
