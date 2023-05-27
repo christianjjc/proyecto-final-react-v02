@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { putArrayInLocalS } from '../../helpers/utilitarios';
 
-import { collection, getDocs, getFirestore } from 'firebase/firestore'  //conexion a FIRESTORE de GOOGLE
+import { collection, getDocs, getFirestore, query, where, limit } from 'firebase/firestore'  //conexion a FIRESTORE de GOOGLE
 
 /* const ItemListContainer = ({ titulo }) => {
     const [data, setData] = useState([]);
@@ -57,34 +57,32 @@ const ItemListContainer = ({ titulo }) => {
     const [data, setData] = useState([]);
     const { idCategoria } = useParams();
 
-    const obtenerDatos = ()=>{
+    const obtenerDatos = () => {
         const db = getFirestore();
-        const itemsCollection = collection(db,'animes');
-        getDocs(itemsCollection)
-        .then((querySnapshot)=>{
-            const dataArray = [];
-            querySnapshot.forEach((doc) => {
-                const data = doc.data();
-                dataArray.push({id: doc.id, ...data});
-            });
-            const array = dataArray;
-            let arrayFiltrado = [];
-            if (idCategoria) {
-                arrayFiltrado = array.filter((item)=>{
-                    return item.idCategoria.some(categoria => categoria.includes(idCategoria))
-                })
-            } else {
-                arrayFiltrado = array;
-            }
-            putArrayInLocalS(arrayFiltrado, 'animes');
-            setData(arrayFiltrado); 
-        })
-        .catch((err)=>{console.log(err)})
+        const itemsCollection = collection(db, 'animes');
+        const q = query(
+            itemsCollection,
+            where('idCategoria', 'array-contains', idCategoria ? idCategoria : '0'),
+            limit(20)
+                );
+        getDocs(q)
+            .then((querySnapshot) => {
+                const dataArray = [];
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    dataArray.push({ id: doc.id, ...data });
+                });
+                putArrayInLocalS(dataArray, 'animes');
+                setData(dataArray);
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         obtenerDatos();
-    },[idCategoria]);
+    }, [idCategoria]);
 
     return (
         <div className='row itemListContainer'>
@@ -95,7 +93,7 @@ const ItemListContainer = ({ titulo }) => {
                     </div>
                 </div>
                 <div className="row justify-content-center">
-                    <div  className='col-12'>
+                    <div className='col-12'>
                         <ItemList item={data} />
                     </div>
                 </div>
@@ -103,6 +101,5 @@ const ItemListContainer = ({ titulo }) => {
         </div>
     );
 };
-
 
 export default ItemListContainer;
